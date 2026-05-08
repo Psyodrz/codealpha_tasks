@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Calculate your exact age in years, months, and days with a detailed lifetime breakdown.">
+    <title>Age Calculator — Know Your Numbers</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Decorative dots -->
+    <div class="bg-dots" aria-hidden="true"></div>
+    <div class="orb orb--teal" aria-hidden="true"></div>
+    <div class="orb orb--warm" aria-hidden="true"></div>
+    <div class="orb orb--blue" aria-hidden="true"></div>
+
+    <main class="page">
+        <!-- Hero / Input Section -->
+        <section class="hero">
+            <div class="hero-inner">
+                <header class="header">
+                    <h1 class="title">Age Calculator</h1>
+                    <p class="subtitle">Find out exactly how long you've been around.</p>
+                </header>
+
+                <form id="ageForm" class="form-card" autocomplete="off" novalidate>
+                    <span class="form-label">Your date of birth</span>
+                    <div class="input-row">
+                        <div class="field">
+                            <label for="day">Day</label>
+                            <input type="text" id="day" inputmode="numeric" placeholder="DD" maxlength="2">
+                        </div>
+                        <span class="sep" aria-hidden="true">/</span>
+                        <div class="field field--month">
+                            <label for="month">Month</label>
+                            <div class="select-wrap">
+                                <select id="month">
+                                    <option value="" disabled selected>Month</option>
+                                    <option value="1">January</option>
+                                    <option value="2">February</option>
+                                    <option value="3">March</option>
+                                    <option value="4">April</option>
+                                    <option value="5">May</option>
+                                    <option value="6">June</option>
+                                    <option value="7">July</option>
+                                    <option value="8">August</option>
+                                    <option value="9">September</option>
+                                    <option value="10">October</option>
+                                    <option value="11">November</option>
+                                    <option value="12">December</option>
+                                </select>
+                                <svg class="select-arrow" width="12" height="12" viewBox="0 0 12 12" fill="none">
+                                    <path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <span class="sep" aria-hidden="true">/</span>
+                        <div class="field">
+                            <label for="year">Year</label>
+                            <input type="text" id="year" inputmode="numeric" placeholder="YYYY" maxlength="4">
+                        </div>
+                    </div>
+                    <p id="errorMsg" class="error-msg" role="alert"></p>
+                    <button type="submit" id="calculateBtn" class="btn">Calculate</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Results Section (full-width) -->
+        <section id="results" class="results" aria-live="polite">
+            <div class="results-inner">
+                <!-- Left: Primary Age -->
+                <div class="age-card">
+                    <span class="section-label">Your Exact Age</span>
+                    <div class="age-primary">
+                        <div class="age-block">
+                            <span id="ageYears" class="age-num">0</span>
+                            <span class="age-tag">years</span>
+                        </div>
+                        <div class="age-block">
+                            <span id="ageMonths" class="age-num">0</span>
+                            <span class="age-tag">months</span>
+                        </div>
+                        <div class="age-block">
+                            <span id="ageDays" class="age-num">0</span>
+                            <span class="age-tag">days</span>
+                        </div>
+                    </div>
+                    <div class="next-bday-bar">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 1v3M4.5 5.5C4.5 4.12 5.62 3 7 3h2c1.38 0 2.5 1.12 2.5 2.5V6H4.5v-.5zM3 6h10v2.5c0 .83-.67 1.5-1.5 1.5h-7C3.67 10 3 9.33 3 8.5V6zM2 10h12v3.5c0 .83-.67 1.5-1.5 1.5h-9c-.83 0-1.5-.67-1.5-1.5V10z" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        <span>Next birthday in <strong id="nextBday">0</strong> days</span>
+                    </div>
+                    <!-- Born day & Zodiac inside age card -->
+                    <div class="info-row">
+                        <div class="info-chip">
+                            <span class="info-label">Born on</span>
+                            <span id="bornDay" class="info-value">--</span>
+                        </div>
+                        <div class="info-chip">
+                            <span class="info-label">Zodiac</span>
+                            <span id="zodiac" class="info-value">--</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Stats -->
+                <div class="stats-panel">
+                    <h2 class="section-heading">Since you arrived...</h2>
+                    <div class="stats-grid">
+                        <div class="stat">
+                            <div class="stat-icon stat-icon--days">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+                            </div>
+                            <span id="totalDays" class="stat-num">0</span>
+                            <span class="stat-tag">Total Days</span>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-icon stat-icon--weeks">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6s1.5-2 5-2 5 2 5 2 1.5 2 5 2 5-2 5-2"/><path d="M2 12s1.5-2 5-2 5 2 5 2 1.5 2 5 2 5-2 5-2"/><path d="M2 18s1.5-2 5-2 5 2 5 2 1.5 2 5 2 5-2 5-2"/></svg>
+                            </div>
+                            <span id="totalWeeks" class="stat-num">0</span>
+                            <span class="stat-tag">Total Weeks</span>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-icon stat-icon--hours">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                            </div>
+                            <span id="totalHours" class="stat-num">0</span>
+                            <span class="stat-tag">Total Hours</span>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-icon stat-icon--minutes">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                            </div>
+                            <span id="totalMinutes" class="stat-num">0</span>
+                            <span class="stat-tag">Total Minutes</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer class="footer">
+            <p>Built with vanilla HTML, CSS & JavaScript</p>
+        </footer>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

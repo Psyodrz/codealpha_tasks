@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Taskflow — Premium To-Do</title>
+    <meta name="description" content="A cinematic, high-performance to-do list manager for focused productivity.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+    
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>◎</text></svg>">
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="grid-background"></div>
+    
+    <main class="app-container">
+        <header class="app-header">
+            <h1 class="app-title">Taskflow</h1>
+            
+            <div class="progress-section">
+                <div class="progress-info">
+                    <span id="progress-text">0 / 0 done</span>
+                    <span id="progress-percentage">0%</span>
+                </div>
+                <div class="progress-bar-container">
+                    <div id="progress-fill" class="progress-bar-fill"></div>
+                </div>
+            </div>
+        </header>
+
+        <section class="input-section">
+            <div class="input-wrapper">
+                <input type="text" id="task-input" placeholder="What needs to be done?" maxlength="120" autocomplete="off">
+                <button id="add-task-btn" aria-label="Add Task">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                </button>
+            </div>
+        </section>
+
+        <nav class="filter-nav">
+            <button class="filter-btn active" data-filter="all">All</button>
+            <button class="filter-btn" data-filter="active">Active</button>
+            <button class="filter-btn" data-filter="done">Done</button>
+        </nav>
+
+        <ul id="task-list" class="task-list">
+            <!-- Tasks will be rendered here -->
+        </ul>
+
+        <div id="empty-state" class="empty-state hidden">
+            <div class="empty-icon">◎</div>
+            <p id="empty-message" class="empty-message">Nothing here yet. Add your first task above.</p>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
